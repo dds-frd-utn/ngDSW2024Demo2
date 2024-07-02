@@ -1,0 +1,94 @@
+
+<div class="register-form">
+<h2>Nuevo curso</h2>
+<form #f="ngForm" (ngSubmit)="f.form.valid && OnSave()" >
+    <div class="form-group">
+        <label for="titulo">Titulo nuevo curso </label>
+        <input type="text" id="titulo" name="titulo" placeholder="Titulo nuevo curso*"
+            class="form-control" minlength="4" maxlength="20" required
+            [(ngModel)]="NewCurso.titulo" #titulo="ngModel" 
+            [ngClass]="{ 'is-invalid': f.submitted && titulo.errors }"/>
+            @if (f.submitted && titulo.errors ){
+                <div class="invalid-feedback">
+                  @if (titulo.errors['required']) {
+                  <div>Titulo es obligatorio</div>
+                  }
+                  @if (titulo.errors['minlength']) {
+                  <div>El titulo debe ser como minimo de 4 char.</div>
+                  }
+                  @if (titulo.errors['maxlength']) {
+                  <div>El titulo debe ser como maximo de 20 char.</div>
+                  }
+                </div>
+            }            
+    </div>
+    <div class="form-group">
+    <label for="description">Descripcion </label>        
+    <input type="text" id="description" name="description" placeholder="Descripcion*"
+        class="form-control" minlength="4" maxlength="40" required
+        [(ngModel)]="NewCurso.descripcion" #descripcion="ngModel" 
+        [ngClass]="{ 'is-invalid': f.submitted && descripcion.errors }"/>
+        @if (f.submitted && descripcion.errors ){
+            <div class="invalid-feedback">
+              @if (descripcion.errors['required']) {
+              <div>Descripcion es obligatoria</div>
+              }
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="nombreAula">Nombre Aula </label>
+        <input type="text" id="nombreAula" name="nombreAula" placeholder="Nombre Aula" width="200"
+        class="form-control" maxlength="20"
+        [(ngModel)]="NewCurso.nombreAula" #nombreAula="ngModel" />
+    </div>
+
+    <div class="form-group">
+        <label for="nombreProfesor">Nombre Profesor </label>
+        <input type="text" id="nombreProfesor" name="nombreProfesor" placeholder="Nombre Profesor"
+        class="form-control" disabled="{{Val1}}"
+        [(ngModel)]="NewCurso.nombreProfesor" #nombreProfesor="ngModel" />
+    </div>
+    <div class="form-group">
+        <label for="fechaInicio">Inicio </label>
+        <input type="date" id="fechaInicio" name="fechaInicio"
+            class="form-control"
+            [(ngModel)]="NewCurso.fechaInicio" #fechaInicio="ngModel" />   
+    </div>
+    <div class="form-group">
+        <label for="cursoPrivado" class="form-check-label">Privado</label>&nbsp;
+        <input type="checkbox" id="cursoPrivado" name="cursoPrivado"
+            class="form-check-input" (change)="OnPrivatoChange()"
+            [(ngModel)]="NewCurso.cursoPrivado" #cursoPrivado="ngModel" />       
+    </div>
+    <div class="form-group">
+        <label for="horasSemanales">Hs. Semanales </label>
+        <input type="number" id="horasSemanales" name="horasSemanales" placeholder="Horas semanales"
+            class="form-control" [max]="99" min="1" required
+            [(ngModel)]="NewCurso.horasSemanales" #horasSemanales="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && horasSemanales.errors }"/>   
+            @if (f.submitted && horasSemanales.errors ){
+                <div class="invalid-feedback">
+                  @if (horasSemanales.errors['min']) {
+                    <div>El valor minimo es 1</div>
+                  }
+                  @if (horasSemanales.errors['max']) {
+                    <div>El valor maximo es 99</div>
+                  }
+                </div>
+            }        
+    </div>  
+    <br/>   
+    <div class="form-group">
+    <button type="submit"  class="btn btn-primary">Salva</button>
+    <button
+        type="reset"
+        class="btn btn-warning float-right"
+      >
+        Reset
+      </button>     
+    </div>
+</form>
+</div>
+
+

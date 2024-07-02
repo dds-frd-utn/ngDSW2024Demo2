@@ -1,0 +1,48 @@
+
+<div class="register-form">
+    <h2>Nuevo post</h2>
+    <form #f="ngForm" (ngSubmit)="f.form.valid && OnSave()" >
+        <div class="form-group">
+            <label for="titulo">Titulo nuevo post </label>
+            <input type="text" id="titulo" name="titulo" placeholder=""
+                class="form-control" minlength="4" maxlength="120" required
+                [(ngModel)]="NewPost.title" #titulo="ngModel" 
+                [ngClass]="{ 'is-invalid': f.submitted && titulo.errors }"/>
+                @if (f.submitted && titulo.errors ){
+                    <div class="invalid-feedback">
+                      @if (titulo.errors['required']) {
+                      <div>Titulo es obligatorio</div>
+                      }
+                      @if (titulo.errors['minlength']) {
+                      <div>El titulo debe ser como minimo de 4 char.</div>
+                      }
+                      @if (titulo.errors['maxlength']) {
+                      <div>El titulo debe ser como maximo de 20 char.</div>
+                      }
+                    </div>
+                }            
+        </div>
+        <div class="form-group">
+        <label for="description">Descripcion </label>        
+        <textarea type="textarea" id="description" name="description" rows="5"
+            class="form-control" minlength="4" required
+            [(ngModel)]="NewPost.body" #descripcion="ngModel" 
+            [ngClass]="{ 'is-invalid': f.submitted && descripcion.errors }"></textarea>
+            @if (f.submitted && descripcion.errors ){
+                <div class="invalid-feedback">
+                  @if (descripcion.errors['required']) {
+                  <div>Descripcion es obligatoria</div>
+                  }
+                </div>
+            }
+        </div>
+
+        <br/>   
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary">Salva</button>
+        <button type="reset" class="btn btn-warning float-right">
+            Reset
+          </button>     
+        </div>
+    </form>
+    </div>
